@@ -34,4 +34,3 @@ jobs:
         git branch -m gh-pages
         git remote add origin "https://github.com/${{ secrets.USERNAME }}/${{ secrets.REPOSITORY }}.git"
         git push -f origin gh-pages
-        echo done
