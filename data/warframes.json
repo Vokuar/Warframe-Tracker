@@ -1,1 +1,54 @@
-
+[
+  {
+    "name": "Ash",
+    "prime": true,
+    "owned": true,
+    "parts": [
+      {
+        "name": "Chassis",
+        "status": "Built"
+      },
+      {
+        "name": "Neuroptics",
+        "status": "Blueprint owned"
+      },
+      {
+        "name": "Systems",
+        "status": "Missing"
+      },
+      {
+        "name": "Main Blueprint",
+        "status": "Blueprint owned"
+      }
+    ]
+  },
+  {
+    "name": "Ember",
+    "prime": false,
+    "owned": false,
+    "parts": []
+  },
+  {
+    "name": "Excalibur",
+    "prime": true,
+    "owned": true,
+    "parts": [
+      {
+        "name": "Chassis",
+        "status": "Built"
+      },
+      {
+        "name": "Neuroptics",
+        "status": "Built"
+      },
+      {
+        "name": "Systems",
+        "status": "Missing"
+      },
+      {
+        "name": "Main Blueprint",
+        "status": "Built"
+      }
+    ]
+  }
+]
