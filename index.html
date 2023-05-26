@@ -2,29 +2,24 @@
 <html>
 <head>
   <title>Warframe Tracker</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js"></script>
+  <script src="js/warframe_tracker.js"></script>
 </head>
 <body>
   <h1>Warframe Tracker</h1>
   
-  <div id="voidFissures">
-    <!-- Void Fissures tracking code here -->
-  </div>
+  <h2>Warframes:</h2>
+  <ul id="warframes-list"></ul>
   
-  <div id="invasions">
-    <!-- Invasions tracking code here -->
-  </div>
-  
-  <div id="alerts">
-    <!-- Alerts tracking code here -->
-  </div>
-  
-  <!-- Add more tracking sections for other Warframe activities -->
-  
+  <h2>Weapons:</h2>
+  <ul id="weapons-list"></ul>
+
+  <button onclick="addWarframe()">Add Warframe</button>
+  <button onclick="addWeapon()">Add Weapon</button>
+
   <script>
-    // JavaScript code for updating and displaying the tracker information
-    // Use appropriate JavaScript functions or libraries to fetch and update the data dynamically
+    // Initialize the display
+    displayWarframes();
+    displayWeapons();
   </script>
 </body>
 </html>
