@@ -3,6 +3,9 @@
 var warframes = [];
 var weapons = [];
 
+var partNames = ["Chassis", "Neuroptics", "Systems", "Main Blueprint"];
+var partStatuses = ["Missing", "Blueprint owned", "Built"];
+
 function addWarframe() {
   var warframeName = prompt("Enter the Warframe name:");
   var owned = confirm("Do you own this Warframe?");
@@ -34,10 +37,15 @@ function removeWeapon(index) {
 }
 
 function addWarframePart(warframeIndex) {
-  var warframePartName = prompt("Enter the Warframe part name:");
-  var owned = confirm("Do you own this Warframe part?");
+  if (warframes[warframeIndex].parts.length >= 4) {
+    alert("You can only add up to 4 parts.");
+    return;
+  }
 
-  warframes[warframeIndex].parts.push({ name: warframePartName, owned: owned });
+  var partName = createDropdown(partNames, "Select part name:");
+  var partStatus = createDropdown(partStatuses, "Select part status:");
+
+  warframes[warframeIndex].parts.push({ name: partName, status: partStatus });
   displayWarframes();
   saveDataToLocalStorage();
 }
@@ -73,7 +81,7 @@ function displayWarframes() {
           removeWarframePart(warframeIndex, partIndex);
         };
       })(i, j);
-      partItem.textContent = warframes[i].parts[j].name;
+      partItem.textContent = warframes[i].parts[j].name + " (" + warframes[i].parts[j].status + ")";
       partItem.appendChild(removePartButton);
       partsList.appendChild(partItem);
     }
@@ -128,6 +136,18 @@ function loadDataFromLocalStorage() {
     weapons = JSON.parse(weaponsData);
     displayWeapons();
   }
+}
+
+function createDropdown(options, prompt) {
+  var dropdown = document.createElement("select");
+  for (var i = 0; i < options.length; i++) {
+    var option = document.createElement("option");
+    option.value = options[i];
+    option.text = options[i];
+    dropdown.appendChild(option);
+  }
+  var selection = prompt ? prompt + "\n" : "";
+  return prompt + dropdown.outerHTML;
 }
 
 function getWarframes() {
