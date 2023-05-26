@@ -22,8 +22,8 @@ jobs:
 
     - name: Set up Git
       run: |
-        git config --global user.name "${{ secrets.GITHUB_NAME }}"
-        git config --global user.email "${{ secrets.GITHUB_EMAIL }}"
+        git config --global user.name "${{ secrets.NAME }}"
+        git config --global user.email "${{ secrets.EMAIL }}"
 
     - name: Commit and push changes
       run: |
@@ -32,5 +32,5 @@ jobs:
         git add -A
         git commit -m "Deploy to GitHub Pages"
         git branch -m gh-pages
-        git remote add origin "https://github.com/${{ secrets.GITHUB_USERNAME }}/${{ secrets.GITHUB_REPOSITORY }}.git"
+        git remote add origin "https://github.com/${{ secrets.USERNAME }}/${{ secrets.REPOSITORY }}.git"
         git push -f origin gh-pages
