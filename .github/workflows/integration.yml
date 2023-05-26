@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout frontend repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -18,28 +18,43 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm ci
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout backend repository
+        uses: actions/checkout@v2
+        with:
+          repository: Vokuar/warframe-tracker-backend
+          ref: main
+          path: backend
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: ./backend
 
       - name: Build frontend
         run: npm run build
+        working-directory: ./backend
 
-  deploy:
-  needs: build
-  runs-on: ubuntu-latest
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.0.6
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: your-heroku-app-name
+          heroku_email: your-heroku-email
+          usedocker: false
+          usedockercompose: false
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Deploy to Heroku
-      uses: akhileshns/heroku-deploy@v3.0.6
-      with:
-        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: your-heroku-app-name
-        heroku_email: your-heroku-email
-        usedocker: false
-        usedockercompose: false
-
-    - name: Fetch warframes data
-      run: npm run fetch-warframes
+      - name: Fetch warframes data
+        run: npm run fetch-warframes
+        working-directory: ./backend
