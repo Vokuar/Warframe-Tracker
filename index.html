@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<head><!DOCTYPE html>
+<html>
 <head>
   <title>Warframe Tracker</title>
   <link rel="stylesheet" href="css/style.css">
@@ -22,5 +24,32 @@
     displayWarframes();
     displayWeapons();
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
+
+  <title>Warframe Tracker</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/warframe_tracker.js"></script>
+</head>
+<body>
+  <h1>Warframe Tracker</h1>
+  
+  <h2>Warframes:</h2>
+  <ul id="warframes-list"></ul>
+  
+  <h2>Weapons:</h2>
+  <ul id="weapons-list"></ul>
+
+  <button onclick="addWarframe()">Add Warframe</button>
+  <button onclick="addWeapon()">Add Weapon</button>
+
+  <script>
+    // Initialize the display
+    displayWarframes();
+    displayWeapons();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>
