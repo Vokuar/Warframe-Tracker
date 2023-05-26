@@ -5,14 +5,18 @@ var weapons = [];
 
 function addWarframe() {
   var warframeName = prompt("Enter the Warframe name:");
-  warframes.push(warframeName);
+  var owned = confirm("Do you own this Warframe?");
+
+  warframes.push({ name: warframeName, owned: owned, parts: [] });
   displayWarframes();
   saveDataToLocalStorage();
 }
 
 function addWeapon() {
   var weaponName = prompt("Enter the Weapon name:");
-  weapons.push(weaponName);
+  var owned = confirm("Do you own this Weapon?");
+
+  weapons.push({ name: weaponName, owned: owned });
   displayWeapons();
   saveDataToLocalStorage();
 }
@@ -29,6 +33,21 @@ function removeWeapon(index) {
   saveDataToLocalStorage();
 }
 
+function addWarframePart(warframeIndex) {
+  var warframePartName = prompt("Enter the Warframe part name:");
+  var owned = confirm("Do you own this Warframe part?");
+
+  warframes[warframeIndex].parts.push({ name: warframePartName, owned: owned });
+  displayWarframes();
+  saveDataToLocalStorage();
+}
+
+function removeWarframePart(warframeIndex, partIndex) {
+  warframes[warframeIndex].parts.splice(partIndex, 1);
+  displayWarframes();
+  saveDataToLocalStorage();
+}
+
 function displayWarframes() {
   var warframesList = document.getElementById("warframes-list");
   warframesList.innerHTML = "";
@@ -41,8 +60,35 @@ function displayWarframes() {
         removeWarframe(index);
       };
     })(i);
-    warframeItem.textContent = warframes[i];
+    warframeItem.textContent = warframes[i].name;
     warframeItem.appendChild(removeButton);
+
+    var partsList = document.createElement("ul");
+    for (var j = 0; j < warframes[i].parts.length; j++) {
+      var partItem = document.createElement("li");
+      var removePartButton = document.createElement("button");
+      removePartButton.textContent = "Remove Part";
+      removePartButton.onclick = (function(warframeIndex, partIndex) {
+        return function() {
+          removeWarframePart(warframeIndex, partIndex);
+        };
+      })(i, j);
+      partItem.textContent = warframes[i].parts[j].name;
+      partItem.appendChild(removePartButton);
+      partsList.appendChild(partItem);
+    }
+
+    var addPartButton = document.createElement("button");
+    addPartButton.textContent = "Add Part";
+    addPartButton.onclick = (function(warframeIndex) {
+      return function() {
+        addWarframePart(warframeIndex);
+      };
+    })(i);
+
+    warframeItem.appendChild(partsList);
+    warframeItem.appendChild(addPartButton);
+
     warframesList.appendChild(warframeItem);
   }
 }
@@ -59,7 +105,7 @@ function displayWeapons() {
         removeWeapon(index);
       };
     })(i);
-    weaponItem.textContent = weapons[i];
+    weaponItem.textContent = weapons[i].name;
     weaponItem.appendChild(removeButton);
     weaponsList.appendChild(weaponItem);
   }
@@ -87,59 +133,13 @@ function loadDataFromLocalStorage() {
 function getWarframes() {
   // Make an API call to the Warframe Wiki to retrieve the list of warframes
   // and populate the warframes array
-  axios
-    .get("https://warframe.wiki/api.php?action=parse&page=Warframes&format=json")
-    .then(function(response) {
-      var warframesData = response.data.parse.text["*"];
-      // Parse the warframesData and extract the relevant information
-      // to populate the warframes array
-
-      // Example: Parsing the HTML response using DOM manipulation
-      var parser = new DOMParser();
-      var html = parser.parseFromString(warframesData, "text/html");
-      var warframeElements = html.querySelectorAll(".warframes-table tbody tr");
-
-      warframes = [];
-      warframeElements.forEach(function(warframeElement) {
-        var warframeName = warframeElement.querySelector("td:first-child").textContent;
-        warframes.push(warframeName);
-      });
-
-      displayWarframes();
-      saveDataToLocalStorage();
-    })
-    .catch(function(error) {
-      console.log("Error retrieving warframes:", error);
-    });
+  // ...
 }
 
 function getWeapons() {
   // Make an API call to the Warframe Wiki to retrieve the list of weapons
   // and populate the weapons array
-  axios
-    .get("https://warframe.wiki/api.php?action=parse&page=Weapons&format=json")
-    .then(function(response) {
-      var weaponsData = response.data.parse.text["*"];
-      // Parse the weaponsData and extract the relevant information
-      // to populate the weapons array
-
-      // Example: Parsing the HTML response using DOM manipulation
-      var parser = new DOMParser();
-      var html = parser.parseFromString(weaponsData, "text/html");
-      var weaponElements = html.querySelectorAll(".weapons-table tbody tr");
-
-      weapons = [];
-      weaponElements.forEach(function(weaponElement) {
-        var weaponName = weaponElement.querySelector("td:first-child").textContent;
-        weapons.push(weaponName);
-      });
-
-      displayWeapons();
-      saveDataToLocalStorage();
-    })
-    .catch(function(error) {
-      console.log("Error retrieving weapons:", error);
-    });
+  // ...
 }
 
 // Load data from local storage on page load
@@ -149,9 +149,9 @@ window.onload = function() {
 
 // Initialize the tabs
 document.getElementById("warframes-tab").addEventListener("click", function() {
-  getWarframes();
+  displayWarframes();
 });
 
 document.getElementById("weapons-tab").addEventListener("click", function() {
-  getWeapons();
+  displayWeapons();
 });
