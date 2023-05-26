@@ -1,0 +1,7 @@
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject",
+  "fetch-warframes": "curl https://your-backend-api-url/warframes -o src/data/warframes.json"
+},
