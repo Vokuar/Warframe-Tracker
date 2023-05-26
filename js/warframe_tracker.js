@@ -7,7 +7,6 @@ function addWarframe() {
   var warframeName = prompt("Enter the Warframe name:");
   warframes.push(warframeName);
   displayWarframes();
-  saveDataToCookies();
   saveDataToLocalStorage();
 }
 
@@ -15,21 +14,18 @@ function addWeapon() {
   var weaponName = prompt("Enter the Weapon name:");
   weapons.push(weaponName);
   displayWeapons();
-  saveDataToCookies();
   saveDataToLocalStorage();
 }
 
 function removeWarframe(index) {
   warframes.splice(index, 1);
   displayWarframes();
-  saveDataToCookies();
   saveDataToLocalStorage();
 }
 
 function removeWeapon(index) {
   weapons.splice(index, 1);
   displayWeapons();
-  saveDataToCookies();
   saveDataToLocalStorage();
 }
 
@@ -69,28 +65,9 @@ function displayWeapons() {
   }
 }
 
-function saveDataToCookies() {
-  document.cookie = "warframes=" + JSON.stringify(warframes);
-  document.cookie = "weapons=" + JSON.stringify(weapons);
-}
-
 function saveDataToLocalStorage() {
   localStorage.setItem("warframes", JSON.stringify(warframes));
   localStorage.setItem("weapons", JSON.stringify(weapons));
-}
-
-function loadDataFromCookies() {
-  var warframesCookie = getCookie("warframes");
-  if (warframesCookie) {
-    warframes = JSON.parse(warframesCookie);
-    displayWarframes();
-  }
-
-  var weaponsCookie = getCookie("weapons");
-  if (weaponsCookie) {
-    weapons = JSON.parse(weaponsCookie);
-    displayWeapons();
-  }
 }
 
 function loadDataFromLocalStorage() {
@@ -107,24 +84,74 @@ function loadDataFromLocalStorage() {
   }
 }
 
-function getCookie(name) {
-  var cookieName = name + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var cookieArray = decodedCookie.split(";");
-  for (var i = 0; i < cookieArray.length; i++) {
-    var cookie = cookieArray[i];
-    while (cookie.charAt(0) === " ") {
-      cookie = cookie.substring(1);
-    }
-    if (cookie.indexOf(cookieName) === 0) {
-      return cookie.substring(cookieName.length, cookie.length);
-    }
-  }
-  return "";
+function getWarframes() {
+  // Make an API call to the Warframe Wiki to retrieve the list of warframes
+  // and populate the warframes array
+  axios
+    .get("https://warframe.wiki/api.php?action=parse&page=Warframes&format=json")
+    .then(function(response) {
+      var warframesData = response.data.parse.text["*"];
+      // Parse the warframesData and extract the relevant information
+      // to populate the warframes array
+
+      // Example: Parsing the HTML response using DOM manipulation
+      var parser = new DOMParser();
+      var html = parser.parseFromString(warframesData, "text/html");
+      var warframeElements = html.querySelectorAll(".warframes-table tbody tr");
+
+      warframes = [];
+      warframeElements.forEach(function(warframeElement) {
+        var warframeName = warframeElement.querySelector("td:first-child").textContent;
+        warframes.push(warframeName);
+      });
+
+      displayWarframes();
+      saveDataToLocalStorage();
+    })
+    .catch(function(error) {
+      console.log("Error retrieving warframes:", error);
+    });
 }
 
-// Load data from cookies and local storage on page load
+function getWeapons() {
+  // Make an API call to the Warframe Wiki to retrieve the list of weapons
+  // and populate the weapons array
+  axios
+    .get("https://warframe.wiki/api.php?action=parse&page=Weapons&format=json")
+    .then(function(response) {
+      var weaponsData = response.data.parse.text["*"];
+      // Parse the weaponsData and extract the relevant information
+      // to populate the weapons array
+
+      // Example: Parsing the HTML response using DOM manipulation
+      var parser = new DOMParser();
+      var html = parser.parseFromString(weaponsData, "text/html");
+      var weaponElements = html.querySelectorAll(".weapons-table tbody tr");
+
+      weapons = [];
+      weaponElements.forEach(function(weaponElement) {
+        var weaponName = weaponElement.querySelector("td:first-child").textContent;
+        weapons.push(weaponName);
+      });
+
+      displayWeapons();
+      saveDataToLocalStorage();
+    })
+    .catch(function(error) {
+      console.log("Error retrieving weapons:", error);
+    });
+}
+
+// Load data from local storage on page load
 window.onload = function() {
-  loadDataFromCookies();
   loadDataFromLocalStorage();
 };
+
+// Initialize the tabs
+document.getElementById("warframes-tab").addEventListener("click", function() {
+  getWarframes();
+});
+
+document.getElementById("weapons-tab").addEventListener("click", function() {
+  getWeapons();
+});
