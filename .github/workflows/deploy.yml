@@ -16,7 +16,7 @@ jobs:
     - name: Build and deploy
       run: |
         mkdir -p deploy
-        cp -r !(deploy) deploy/
+        rsync -av --exclude=deploy/ . deploy/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
