@@ -15,12 +15,12 @@ jobs:
 
     - name: Build and deploy
       run: |
-        mkdir -p deploy
-        rsync -av --exclude=deploy/ ./ deploy/
+        mkdir -p build
+        rsync -av --exclude=build/ ./ build/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./deploy
+        publish_dir: ./build
         publish_branch: gh-pages
