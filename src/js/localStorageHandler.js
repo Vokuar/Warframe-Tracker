@@ -1,20 +1,27 @@
 // src/js/localStorageHandler.js
 
 function saveDataToLocalStorage() {
-  localStorage.setItem("warframes", JSON.stringify(warframes));
-  localStorage.setItem("weapons", JSON.stringify(weapons));
-}
+  var data = {
+    warframes: warframes,
+    weapons: weapons
+  };
+  localStorage.setItem("warframeTrackerData", JSON.stringify(data));
 
-function loadDataFromLocalStorage() {
-  var warframesData = localStorage.getItem("warframes");
-  if (warframesData) {
-    warframes = JSON.parse(warframesData);
-    displayWarframes();
-  }
-
-  var weaponsData = localStorage.getItem("weapons");
-  if (weaponsData) {
-    weapons = JSON.parse(weaponsData);
-    displayWeapons();
-  }
+  // Save data to your backend
+  fetch('https://your-backend-url.com/save-data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to save data to the backend.');
+    }
+    console.log('Data saved to the backend successfully.');
+  })
+  .catch(error => {
+    console.error('Error saving data to the backend:', error);
+  });
 }
