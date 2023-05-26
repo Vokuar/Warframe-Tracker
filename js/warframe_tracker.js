@@ -34,7 +34,6 @@ function addWarframe() {
     });
 }
 
-
 function addWeapon() {
   var weaponName = prompt("Enter the Weapon name:");
   var owned = confirm("Do you own this Weapon?");
@@ -101,22 +100,21 @@ function displayWarframes() {
           removeWarframePart(warframeIndex, partIndex);
         };
       })(i, j);
-      partItem.textContent = warframes[i].parts[j].name + " (" + warframes[i].parts[j].status + ")";
+      partItem.textContent = warframes[i].parts[j].name + " - " + warframes[i].parts[j].status;
       partItem.appendChild(removePartButton);
       partsList.appendChild(partItem);
     }
 
     var addPartButton = document.createElement("button");
     addPartButton.textContent = "Add Part";
-    addPartButton.onclick = (function(warframeIndex) {
+    addPartButton.onclick = (function(index) {
       return function() {
-        addWarframePart(warframeIndex);
+        addWarframePart(index);
       };
     })(i);
 
     warframeItem.appendChild(partsList);
     warframeItem.appendChild(addPartButton);
-
     warframesList.appendChild(warframeItem);
   }
 }
@@ -139,66 +137,50 @@ function displayWeapons() {
   }
 }
 
+function createDropdown(options, promptText) {
+  var dropdown = prompt(promptText, options[0]);
+  if (!dropdown) {
+    return ""; // User cancelled prompt
+  }
+  if (!options.includes(dropdown)) {
+    alert("Invalid option. Please select from the provided options.");
+    return createDropdown(options, promptText);
+  }
+  return dropdown;
+}
+
 function saveDataToLocalStorage() {
-  localStorage.setItem("warframes", JSON.stringify(warframes));
-  localStorage.setItem("weapons", JSON.stringify(weapons));
+  var data = {
+    warframes: warframes,
+    weapons: weapons
+  };
+  localStorage.setItem("warframeTrackerData", JSON.stringify(data));
 }
 
 function loadDataFromLocalStorage() {
-  var warframesData = localStorage.getItem("warframes");
-  if (warframesData) {
-    warframes = JSON.parse(warframesData);
-    displayWarframes();
-  }
-
-  var weaponsData = localStorage.getItem("weapons");
-  if (weaponsData) {
-    weapons = JSON.parse(weaponsData);
-    displayWeapons();
+  var data = localStorage.getItem("warframeTrackerData");
+  if (data) {
+    data = JSON.parse(data);
+    warframes = data.warframes || [];
+    weapons = data.weapons || [];
   }
 }
 
-function createDropdown(options, prompt) {
-  var dropdown = document.createElement("select");
-  for (var i = 0; i < options.length; i++) {
-    var option = document.createElement("option");
-    option.value = options[i];
-    option.text = options[i];
-    dropdown.appendChild(option);
-  }
-  var selection = prompt ? prompt + "\n" : "";
-  return prompt + dropdown.outerHTML;
-}
-
-function getWarframes() {
-  // Make an API call to the Warframe Wiki to retrieve the list of warframes
-  // and populate the warframes array
-  // ...
-}
-
-function getWeapons() {
-  // Make an API call to the Warframe Wiki to retrieve the list of weapons
-  // and populate the weapons array
-  // ...
-}
-
-// Load data from local storage on page load
+// Initialize the tabs and load data from local storage on page load
 window.onload = function() {
   loadDataFromLocalStorage();
+
+  document.getElementById("warframes-tab").addEventListener("click", function() {
+    displayWarframes();
+  });
+
+  document.getElementById("weapons-tab").addEventListener("click", function() {
+    displayWeapons();
+  });
+
+  document.getElementById("add-warframe-btn").addEventListener("click", addWarframe);
+
+  document.getElementById("add-weapon-btn").addEventListener("click", function() {
+    addWeapon();
+  });
 };
-
-// Initialize the tabs
-document.getElementById("warframes-tab").addEventListener("click", function() {
-  displayWarframes();
-});
-
-document.getElementById("weapons-tab").addEventListener("click", function() {
-  displayWeapons();
-});
-
-document.getElementById("add-warframe-btn").addEventListener("click", addWarframe);
-
-
-document.getElementById("add-weapon-btn").addEventListener("click", function() {
-  addWeapon();
-});
