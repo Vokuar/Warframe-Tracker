@@ -3,26 +3,30 @@
 <head>
   <title>Warframe Tracker</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/warframe.css">
   <script src="js/warframe_tracker.js"></script>
 </head>
 <body>
-  <h1>Warframe Tracker</h1>
-  
-  <div class="tabs">
-    <button id="warframes-tab">Warframes</button>
-    <button id="weapons-tab">Weapons</button>
-  </div>
-  
-  <div id="warframes" class="tab-content">
-    <h2>Warframes:</h2>
-    <ul id="warframes-list"></ul>
-    <button id="add-warframe-btn">Add Warframe</button>
-  </div>
-  
-  <div id="weapons" class="tab-content">
-    <h2>Weapons:</h2>
-    <ul id="weapons-list"></ul>
-    <button id="add-weapon-btn">Add Weapon</button>
+  <div class="warframe-background"></div>
+  <div class="container">
+    <h1>Warframe Tracker</h1>
+    
+    <div class="tabs">
+      <button id="warframes-tab" class="active">Warframes</button>
+      <button id="weapons-tab">Weapons</button>
+    </div>
+    
+    <div id="warframes" class="tab-content">
+      <h2>Warframes:</h2>
+      <ul id="warframes-list"></ul>
+      <button id="add-warframe-btn">Add Warframe</button>
+    </div>
+    
+    <div id="weapons" class="tab-content">
+      <h2>Weapons:</h2>
+      <ul id="weapons-list"></ul>
+      <button id="add-weapon-btn">Add Weapon</button>
+    </div>
   </div>
 
   <script>
