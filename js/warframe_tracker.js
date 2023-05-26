@@ -7,13 +7,33 @@ var partNames = ["Chassis", "Neuroptics", "Systems", "Main Blueprint"];
 var partStatuses = ["Missing", "Blueprint owned", "Built"];
 
 function addWarframe() {
-  var warframeName = prompt("Enter the Warframe name:");
-  var owned = confirm("Do you own this Warframe?");
+  // Retrieve warframe data from the Warframe Wiki API
+  fetch('https://warframe.fandom.com/api.php?action=parse&page=Warframes&prop=links&format=json')
+    .then(response => response.json())
+    .then(data => {
+      var warframeLinks = data.parse.links;
+      var warframeNames = warframeLinks.map(link => link['*']);
 
-  warframes.push({ name: warframeName, owned: owned, parts: [] });
-  displayWarframes();
-  saveDataToLocalStorage();
+      // Prompt for warframe name
+      var warframeName = prompt("Select a Warframe:", warframeNames[0]);
+      if (!warframeName) {
+        return; // User cancelled prompt
+      }
+
+      // Prompt for prime status
+      var isPrime = confirm("Is this a Prime Warframe?");
+
+      var owned = confirm("Do you own this Warframe?");
+
+      warframes.push({ name: warframeName, prime: isPrime, owned: owned, parts: [] });
+      displayWarframes();
+      saveDataToLocalStorage();
+    })
+    .catch(error => {
+      console.error('Error retrieving warframe data:', error);
+    });
 }
+
 
 function addWeapon() {
   var weaponName = prompt("Enter the Weapon name:");
