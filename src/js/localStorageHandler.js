@@ -1,4 +1,4 @@
-// localStorageHandler.js
+// src/js/localStorageHandler.js
 
 function saveDataToLocalStorage() {
   localStorage.setItem("warframes", JSON.stringify(warframes));
