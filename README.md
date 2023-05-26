@@ -1,6 +1,6 @@
 # Warframe Tracker
 
-**Disclaimer: This project is a work-in-progress and is created solely for educational purposes.**
+**Full Disclaimer: I have no idea what im doing so if theres errors idk man im working on it lol.**
 
 ## Overview
 
