@@ -155,3 +155,11 @@ document.getElementById("warframes-tab").addEventListener("click", function() {
 document.getElementById("weapons-tab").addEventListener("click", function() {
   displayWeapons();
 });
+
+document.getElementById("add-warframe-btn").addEventListener("click", function() {
+  addWarframe();
+});
+
+document.getElementById("add-weapon-btn").addEventListener("click", function() {
+  addWeapon();
+});
