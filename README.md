@@ -1,28 +1,45 @@
-# template-webpage.io
+# Warframe Tracker
 
-This is a template repository for creating a GitHub Pages site.
+**Disclaimer: This project is a work-in-progress and is created solely for educational purposes.**
 
-## Description
-The **template-webpage.io** repository serves as a starting point for building your own GitHub Pages site. It provides a basic structure and files to help you quickly set up and customize your webpage.
+## Overview
 
-## Getting Started
-To use this template repository, follow these steps:
-1. Click on the "Use this template" button on the repository page to create a new repository based on this template.
-2. Clone the newly created repository to your local machine using Git.
-3. Customize the contents of the repository to fit your needs. Modify the HTML, CSS, and JavaScript files, and add your own assets, such as images and media files.
-4. Configure the repository settings to enable GitHub Pages. Select the branch you want to use for deployment (e.g., the `main` branch).
-5. Once the configuration is complete, your GitHub Pages site will be automatically deployed and accessible at `https://your-username.github.io/repository-name`.
+Warframe Tracker is a simple web-based application for tracking your Warframes and weapons. You can add, remove, and manage your collection of Warframes and weapons. It provides a convenient way to keep track of the Warframes and weapons you own, as well as their individual parts and blueprints.
+
+## Usage
+
+To use the Warframe Tracker, simply visit the website: [Warframe Tracker](https://vokuar.github.io/Warframe-Tracker/)
 
 ## Features
-- Basic file structure for a webpage
-- Placeholder content to guide you in adding your own text, images, and other media
 
-## Contributing
-If you find any issues or have suggestions for improvements, feel free to [open an issue](https://github.com/your-username/repository-name/issues) or [submit a pull request](https://github.com/your-username/repository-name/pulls) to contribute to this template repository.
+- Add and remove Warframes
+- Add and remove weapons
+- Track individual parts and blueprints for Warframes
 
-## License
-This template is available under the [MIT License](LICENSE).
+## Development
 
-**Note:** Remember to update this README file with relevant information about your GitHub Pages site, including instructions, project details, and acknowledgments.
+The Warframe Tracker project is built using HTML, CSS, and JavaScript. It utilizes the browser's Local Storage for data persistence.
 
-Happy coding and enjoy building your GitHub Pages site!
+### Project Structure
+
+- `index.html`: The main HTML file that defines the structure of the web page.
+- `css/style.css`: The CSS file for general styling.
+- `css/warframe.css`: The CSS file for specific styling related to the Warframe Tracker.
+- `js/warframe_tracker.js`: The JavaScript file containing the logic for adding, removing, and displaying Warframes and weapons.
+
+### Local Development
+
+To work on the project locally, you can clone the repository and open the `index.html` file in your web browser.
+
+### Contributing
+
+Contributions to the Warframe Tracker project are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+### Future Enhancements
+
+- Retrieve data from the Warframe Wiki for auto-population of Warframes and weapons.
+- Improved user interface with more features and customization options.
+
+---
+
+_This Warframe Tracker project is a work-in-progress and is created solely for educational purposes._
