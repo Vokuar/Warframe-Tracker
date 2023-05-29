@@ -3,33 +3,25 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <title>Warframe Tracker</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/warframe.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/warframe.css">
 </head>
 
 <body>
   <div class="container">
+    <div class="warframe-background"></div>
     <h1>Warframe Tracker</h1>
-    <div class="tabs">
-      <button id="warframeTab" class="active">Warframes</button>
-      <button id="weaponTab">Weapons</button>
+    <h2>Warframes</h2>
+    <div id="warframe-tabs" class="tabs">
+      <button id="owned-tab" class="active" onclick="switchTab('owned')">Owned</button>
+      <button id="unowned-tab" onclick="switchTab('unowned')">Unowned</button>
     </div>
-    <div id="warframeContent">
-      <h2>Warframe List</h2>
-      <ul id="warframeList"></ul>
-    </div>
-    <div id="weaponContent" style="display: none;">
-      <h2>Weapon List</h2>
-      <ul id="weaponList"></ul>
-    </div>
-    <button id="saveButton">Save Data</button>
+    <ul id="warframe-list"></ul>
   </div>
-
-  <script src="js/data/warframes.json"></script>
-  <script src="js/data/weapons.json"></script>
-  <script src="js/localStorageHandler.js"></script>
-  <script src="js/app.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/localstoragehandler.js"></script>
 </body>
 
 </html>
