@@ -1,0 +1,21 @@
+// weapons.json
+var weapons = [
+  {
+    "name": "Soma Prime",
+    "owned": true,
+    "masteryRank": 8,
+    "status": "Forma'd"
+  },
+  {
+    "name": "Tigris",
+    "owned": false,
+    "masteryRank": 6,
+    "status": "Missing"
+  },
+  {
+    "name": "Dread",
+    "owned": true,
+    "masteryRank": 5,
+    "status": "Owned"
+  }
+];

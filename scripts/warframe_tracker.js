@@ -1,8 +1,8 @@
 function displayWarframes() {
-  var warframesList = document.getElementById("warframes-list");
+  var warframesList = document.getElementById("warframes-grid");
   warframesList.innerHTML = "";
 
-  warframes.forEach(function (warframe, warframeIndex) {
+  warframes.forEach(function(warframe, warframeIndex) {
     var warframeItem = document.createElement("div");
     warframeItem.classList.add("warframe-item");
 
@@ -10,17 +10,17 @@ function displayWarframes() {
     warframeName.textContent = warframe.name;
     warframeItem.appendChild(warframeName);
 
-    var partsList = document.createElement("ul");
+    var partsList = document.createElement("div");
     partsList.classList.add("parts-list");
 
-    warframe.parts.forEach(function (part, partIndex) {
+    warframe.parts.forEach(function(part, partIndex) {
       var partItem = document.createElement("li");
       partItem.textContent = part.name;
 
       var partStatusBtn = document.createElement("button");
       partStatusBtn.textContent = part.status;
       partStatusBtn.classList.add("part-status");
-      partStatusBtn.addEventListener("click", function () {
+      partStatusBtn.addEventListener("click", function() {
         updatePartStatus(warframeIndex, partIndex);
       });
       partItem.appendChild(partStatusBtn);
@@ -37,7 +37,7 @@ function displayWeapons() {
   var weaponsList = document.getElementById("weapons-list");
   weaponsList.innerHTML = "";
 
-  weapons.forEach(function (weapon, weaponIndex) {
+  weapons.forEach(function(weapon, weaponIndex) {
     var weaponItem = document.createElement("div");
     weaponItem.classList.add("weapon-item");
 
@@ -48,7 +48,7 @@ function displayWeapons() {
     var ownedStatusBtn = document.createElement("button");
     ownedStatusBtn.textContent = weapon.owned ? "Owned" : "Not Owned";
     ownedStatusBtn.classList.add("owned-status");
-    ownedStatusBtn.addEventListener("click", function () {
+    ownedStatusBtn.addEventListener("click", function() {
       toggleOwnedStatus(weaponIndex);
     });
     weaponItem.appendChild(ownedStatusBtn);

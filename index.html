@@ -1,57 +1,35 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Warframe Tracker</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/warframe.css">
-  <script src="js/warframe_tracker.js"></script>
-  <script src="js/localStorageHandler.js"></script>
 </head>
+
 <body>
-  <div class="warframe-background"></div>
   <div class="container">
     <h1>Warframe Tracker</h1>
-    
     <div class="tabs">
-      <button id="warframes-tab" class="active">Warframes</button>
-      <button id="weapons-tab">Weapons</button>
+      <button id="warframeTab" class="active">Warframes</button>
+      <button id="weaponTab">Weapons</button>
     </div>
-    
-    <div id="warframes" class="tab-content">
-      <h2>Warframes:</h2>
-      <div id="warframes-grid" class="grid-container"></div>
-      <button id="add-warframe-btn">Add Warframe</button>
+    <div id="warframeContent">
+      <h2>Warframe List</h2>
+      <ul id="warframeList"></ul>
     </div>
-    
-    <div id="weapons" class="tab-content">
-      <h2>Weapons:</h2>
-      <div id="weapons-grid" class="grid-container"></div>
-      <button id="add-weapon-btn">Add Weapon</button>
+    <div id="weaponContent" style="display: none;">
+      <h2>Weapon List</h2>
+      <ul id="weaponList"></ul>
     </div>
+    <button id="saveButton">Save Data</button>
   </div>
 
-  <script>
-    // Load data from local storage on page load
-    window.onload = function() {
-      loadDataFromLocalStorage();
-    };
-
-    // Initialize the tabs
-    document.getElementById("warframes-tab").addEventListener("click", function() {
-      displayWarframes();
-    });
-
-    document.getElementById("weapons-tab").addEventListener("click", function() {
-      displayWeapons();
-    });
-
-    document.getElementById("add-warframe-btn").addEventListener("click", function() {
-      addWarframe();
-    });
-
-    document.getElementById("add-weapon-btn").addEventListener("click", function() {
-      addWeapon();
-    });
-  </script>
+  <script src="js/data/warframes.json"></script>
+  <script src="js/data/weapons.json"></script>
+  <script src="js/localStorageHandler.js"></script>
+  <script src="js/app.js"></script>
 </body>
+
 </html>
